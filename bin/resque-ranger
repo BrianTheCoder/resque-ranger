@@ -1,0 +1,98 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+
+$LOAD_PATH.unshift File.dirname(__FILE__) + '/../lib'
+require 'resque-ranger'
+require 'choice'
+
+@verbose      = false
+@very_verbose = false
+@detach       = false
+
+Choice.options do
+  header ''
+  header 'Resque Ranger options:'
+
+  option :queues do
+    short '-q'
+    long '--queues=QUEUES'
+    desc 'List of queues to check'
+    cast String
+    default '*'
+  end
+  
+  option :environment do
+    short '-e'
+    long '--environment=ENV'
+    desc 'Set rails env'
+    cast String
+    default 'development'
+  end
+  
+  option :verbose do
+    short '-v'
+    long '--verbose'
+    desc 'Turn on verbose logging'
+    default false
+    action do
+      @verbose = true
+    end
+  end
+  
+  option :very_verbose do
+    short '-w'
+    long '--very_verbose'
+    desc 'Turn on very verbose logging'
+    default false
+    action do
+      @very_verbose = true
+    end
+  end
+  
+  option :interval do
+    short '-i'
+    long '--interval=INTERVAL'
+    desc 'Wait interval between checks'
+    cast Integer
+    default 5
+  end
+  
+  option :workers do
+    short '-n'
+    long '--workers'
+    desc 'Max number of worker processes to run'
+    cast Integer
+    default 1
+  end
+  
+  option :redis do
+    short '-r'
+    long '--redis'
+    desc 'Redis connection string (e.g. 127.0.0.1:6379/0)'
+    cast String
+    default '127.0.0.1:6379/0'
+  end
+  
+  option :detach do
+    short '-d'
+    long '--detach'
+    desc 'Daemonize the process, biatch!'
+    action do
+      @detach = true
+    end
+  end
+
+  separator ''
+  separator 'Common options: '
+
+  option :help do
+    long '--help'
+    desc 'Show this message'
+  end
+end
+
+ENV['RACK_ENV'] = ENV['RAILS_ENV'] = Choice.choices[:environment]
+
+Raemon::Runner.queues = Choice.choices[:queues]
+Raemon::Runner.start 5, Resque::Ranger

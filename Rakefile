@@ -6,11 +6,14 @@ begin
   Jeweler::Tasks.new do |gem|
     gem.name = "resque-ranger"
     gem.summary = %Q{Super fast evented and fibered daemon to process resque jobs, some built in job metrics too}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.description = %Q{TODO: Super fast evented and fibered daemon to process resque jobs, some built in job metrics too, just cause your app might not be on 1.9.1, your bot might be able to}
     gem.email = "wbsmith83@gmail.com"
     gem.homepage = "http://github.com/BrianTheCoder/resque-ranger"
     gem.authors = ["brianthecoder"]
     gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
+    gem.add_dependency "redis", "1.0.4"
+    gem.add_dependency "resque", "1.8.0"
+    gem.add_dependency "eventmachine", "0.12.0"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new

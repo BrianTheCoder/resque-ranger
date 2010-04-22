@@ -69,7 +69,7 @@ Choice.options do
   option :redis do
     short '-r'
     long '--redis'
-    desc 'Redis connection string (e.g. 127.0.0.1:6379/0)'
+    desc 'Redis connection string'
     cast String
     default '127.0.0.1:6379/0'
   end
@@ -81,6 +81,30 @@ Choice.options do
     action do
       @detach = true
     end
+  end
+  
+  option :timeout do
+    short '-t'
+    long '--timeout'
+    desc 'Worker timeout'
+    cast Integer
+    default 60
+  end
+  
+  option :logger do
+    short '-l'
+    long '--logger'
+    desc 'Path of the log file'
+    cast String
+    default nil
+  end
+  
+  option :pid_file do
+    short '-p'
+    long '--pid_file'
+    desc 'Path to the pid file'
+    cast String
+    default nil
   end
 
   separator ''
@@ -95,4 +119,7 @@ end
 ENV['RACK_ENV'] = ENV['RAILS_ENV'] = Choice.choices[:environment]
 
 Raemon::Runner.queues = Choice.choices[:queues]
-Raemon::Runner.start 5, Resque::Ranger
+Raemon::Runner.start 5, Resque::Ranger, :detach => @detach,
+                                        :timeout => Choice.choices[:timeout],
+                                        :logger => Choice.choices[:logger],
+                                        :pid_file => Choice.choices[:pid_file]

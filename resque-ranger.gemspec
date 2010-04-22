@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.authors = ["brianthecoder"]
   s.date = %q{2010-04-22}
   s.default_executable = %q{resque-ranger}
-  s.description = %q{TODO: Super fast evented and fibered daemon to process resque jobs, some built in job metrics too, just cause your app might not be on 1.9.1, your bot might be able to}
+  s.description = %q{Super fast evented daemon to process resque jobs, some built in job metrics too, just cause your app might not be on 1.9.1, your bot might be able to}
   s.email = %q{wbsmith83@gmail.com}
   s.executables = ["resque-ranger"]
   s.extra_rdoc_files = [
@@ -38,7 +38,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.6}
-  s.summary = %q{Super fast evented and fibered daemon to process resque jobs, some built in job metrics too}
+  s.summary = %q{Super fast evented daemon to process resque jobs, some built in job metrics too}
   s.test_files = [
     "test/helper.rb",
      "test/test_resque-ranger.rb"

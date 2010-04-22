@@ -5,8 +5,8 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "resque-ranger"
-    gem.summary = %Q{Super fast evented and fibered daemon to process resque jobs, some built in job metrics too}
-    gem.description = %Q{TODO: Super fast evented and fibered daemon to process resque jobs, some built in job metrics too, just cause your app might not be on 1.9.1, your bot might be able to}
+    gem.summary = %Q{Super fast evented daemon to process resque jobs, some built in job metrics too}
+    gem.description = %Q{Super fast evented daemon to process resque jobs, some built in job metrics too, just cause your app might not be on 1.9.1, your bot might be able to}
     gem.email = "wbsmith83@gmail.com"
     gem.homepage = "http://github.com/BrianTheCoder/resque-ranger"
     gem.authors = ["brianthecoder"]

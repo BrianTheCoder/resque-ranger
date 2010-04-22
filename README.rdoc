@@ -1,6 +1,6 @@
 = resque-ranger
 
-Description goes here.
+So basically I patched raemon and resque so that it will have on master process that will forks n number of child processes for jobs on the queue. Each worker will still exit after it finishes the job, so you still get the benefits from that aspect of the way resque handles jobs. I eventually plan to switch all of the redis interaction to an evented model and maybe even add fibers. I also plan to add some stats around job execution time so you can keep track of over all performance benefits.
 
 == Note on Patches/Pull Requests
  

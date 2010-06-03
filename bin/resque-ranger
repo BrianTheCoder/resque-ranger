@@ -104,7 +104,7 @@ Choice.options do
     long '--pid_file'
     desc 'Path to the pid file'
     cast String
-    default nil
+    default 'tmp/pids/resque-ranger.pid'
   end
 
   separator ''
@@ -118,8 +118,10 @@ end
 
 ENV['RACK_ENV'] = ENV['RAILS_ENV'] = Choice.choices[:environment]
 
+Resque.redis = Redis.new(Choice.choices[:redis])
+
 Raemon::Runner.queues = Choice.choices[:queues]
-Raemon::Runner.start 5, Resque::Ranger, :detach => @detach,
-                                        :timeout => Choice.choices[:timeout],
-                                        :logger => Choice.choices[:logger],
-                                        :pid_file => Choice.choices[:pid_file]
+Raemon::Runner.start Choice.choices[:workers], Resque::Ranger, :detach => @detach,
+                                              :timeout => Choice.choices[:timeout],
+                                              :logger => Choice.choices[:logger],
+                                              :pid_file => Choice.choices[:pid_file]
